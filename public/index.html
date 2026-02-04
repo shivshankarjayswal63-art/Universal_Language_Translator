@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌈 Universal Language Translator - 100+ Languages</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1">✨</div>
+            <div class="shape shape-2">🌟</div>
+            <div class="shape shape-3">💫</div>
+            <div class="shape shape-4">⭐</div>
+            <div class="shape shape-5">🌙</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🌐</span>
+                    <h1>Universal Language Translator</h1>
+                </div>
+                <p class="tagline">🌍 Break Language Barriers • Speak Globally • 100+ Languages</p>
+            </div>
+        </header>
+
+        <!-- Main Translator Section -->
+        <main class="translator-card">
+            <div class="translator-header">
+                <div class="mode-toggle">
+                    <button class="mode-btn active" data-mode="text">
+                        <i class="fas fa-keyboard"></i> Text
+                    </button>
+                    <button class="mode-btn" data-mode="document">
+                        <i class="fas fa-file-alt"></i> Document
+                    </button>
+                    <button class="mode-btn" data-mode="conversation">
+                        <i class="fas fa-comments"></i> Conversation
+                    </button>
+                </div>
+            </div>
+
+            <div class="translator-body">
+                <!-- Source Section -->
+                <div class="language-panel source-panel">
+                    <div class="panel-header">
+                        <select id="sourceLanguage" class="language-select">
+                            <option value="auto">🔍 Auto Detect</option>
+                        </select>
+                        <div class="panel-actions">
+                            <button id="voiceInput" class="action-btn voice-btn" title="Voice Input">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button id="clearSource" class="action-btn clear-btn" title="Clear">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <!-- Text Mode -->
+                        <textarea id="sourceText" class="input-mode text-mode" placeholder="✍️ Type or speak here to translate..."></textarea>
+                        
+                        <!-- Document Mode -->
+                        <div id="documentMode" class="document-mode" style="display: none;">
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <i class="fas fa-file-alt file-icon"></i>
+                                <p>Drag & drop a file here or click to browse</p>
+                                <p class="file-hint">Supports: .txt, .md, .json, .csv, .html</p>
+                                <input type="file" id="fileInput" accept=".txt,.md,.json,.csv,.html,.htm" hidden>
+                            </div>
+                            <div id="documentContent" class="document-content" style="display: none;">
+                                <div class="document-header">
+                                    <span id="documentName">document.txt</span>
+                                    <button id="removeDocument" class="action-btn"><i class="fas fa-times"></i></button>
+                                </div>
+                                <div id="documentText" class="document-text"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Conversation Mode -->
+                        <div id="conversationMode" class="conversation-mode" style="display: none;">
+                            <div class="conversation-container">
+                                <div class="conversation-person person-1">
+                                    <div class="conv-header">
+                                        <span class="conv-label">Person 1</span>
+                                        <select id="convPerson1Lang" class="language-select-small">
+                                            <option value="en">🇺🇸 English</option>
+                                            <option value="ne">🇳🇵 Nepali</option>
+                                        </select>
+                                    </div>
+                                    <textarea id="convPerson1Input" class="conv-input" placeholder="Type or speak..."></textarea>
+                                    <button id="convPerson1Speak" class="conv-speak-btn"><i class="fas fa-microphone"></i></button>
+                                </div>
+                                <div class="conversation-divider">
+                                    <span>⇄</span>
+                                </div>
+                                <div class="conversation-person person-2">
+                                    <div class="conv-header">
+                                        <span class="conv-label">Person 2</span>
+                                        <select id="convPerson2Lang" class="language-select-small">
+                                            <option value="ne">🇳🇵 Nepali</option>
+                                            <option value="en">🇺🇸 English</option>
+                                        </select>
+                                    </div>
+                                    <textarea id="convPerson2Input" class="conv-input" placeholder="Type or speak..."></textarea>
+                                    <button id="convPerson2Speak" class="conv-speak-btn"><i class="fas fa-microphone"></i></button>
+                                </div>
+                                <button id="startConversation" class="conversation-start-btn">
+                                    <i class="fas fa-play"></i> Start Real-time Translation
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="char-counter">
+                            <span id="charCount">0</span> / 5000
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="swap-container">
+                    <button id="swapLanguages" class="swap-btn" title="Swap Languages">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                </div>
+
+                <!-- Target Section -->
+                <div class="language-panel target-panel">
+                    <div class="panel-header">
+                        <select id="targetLanguage" class="language-select">
+                            <option value="ne">🇳🇵 Nepali (नेपाली)</option>
+                        </select>
+                        <div class="panel-actions">
+                            <button id="copyTranslation" class="action-btn copy-btn" title="Copy">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button id="speakTranslation" class="action-btn speak-btn" title="Listen">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button id="favoriteTranslation" class="action-btn favorite-btn" title="Save">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div id="translationResult" class="result-area">
+                            <p class="placeholder">
+                                <i class="fas fa-language"></i>
+                                Translation will appear here...
+                            </p>
+                        </div>
+                        <div class="detected-lang" id="detectedLang"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translate Button -->
+            <div class="translate-section">
+                <button id="translateBtn" class="translate-btn">
+                    <span class="btn-icon"><i class="fas fa-globe"></i></span>
+                    <span class="btn-text">Translate Now</span>
+                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                </button>
+            </div>
+        </main>
+
+        <!-- TTS Controls -->
+        <section class="tts-controls" id="ttsControls" style="display: none;">
+            <div class="tts-info">
+                <span id="ttsStatus">Playing...</span>
+            </div>
+            <div class="tts-buttons">
+                <button id="ttsPause" class="tts-btn"><i class="fas fa-pause"></i></button>
+                <button id="ttsResume" class="tts-btn"><i class="fas fa-play"></i></button>
+                <button id="ttsStop" class="tts-btn"><i class="fas fa-stop"></i></button>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="action-card" id="actionFavorites">
+                <div class="action-icon">💾</div>
+                <div class="action-info">
+                    <h3>Saved</h3>
+                    <p id="favoritesCount">0 items</p>
+                </div>
+            </div>
+            <div class="action-card" id="actionHistory">
+                <div class="action-icon">📚</div>
+                <div class="action-info">
+                    <h3>History</h3>
+                    <p id="historyCount">0 items</p>
+                </div>
+            </div>
+            <div class="action-card" id="actionClear">
+                <div class="action-icon">🗑️</div>
+                <div class="action-info">
+                    <h3>Clear All</h3>
+                    <p>Reset everything</p>
+                </div>
+            </div>
+            <div class="action-card" id="actionDownload">
+                <div class="action-icon">📥</div>
+                <div class="action-info">
+                    <h3>Download</h3>
+                    <p>Save translation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title">
+                <span class="title-icon">✨</span>
+                Amazing Features
+                <span class="title-icon">✨</span>
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card" style="--card-color: #FF6B6B;">
+                    <div class="feature-icon">🎤</div>
+                    <h3>Voice Input</h3>
+                    <p>Speak naturally and let AI translate your words instantly</p>
+                </div>
+                <div class="feature-card" style="--card-color: #4ECDC4;">
+                    <div class="feature-icon">🔊</div>
+                    <h3>Text-to-Speech</h3>
+                    <p>Listen to translations in natural, human-like voices</p>
+                </div>
+                <div class="feature-card" style="--card-color: #45B7D1;">
+                    <div class="feature-icon">🌍</div>
+                    <h3>100+ Languages</h3>
+                    <p>Translate between 100+ world languages including Nepali</p>
+                </div>
+                <div class="feature-card" style="--card-color: #96CEB4;">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices - phone, tablet & desktop</p>
+                </div>
+                <div class="feature-card" style="--card-color: #FFEAA7;">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Results</h3>
+                    <p>Fast and accurate translations in seconds</p>
+                </div>
+                <div class="feature-card" style="--card-color: #DDA0DD;">
+                    <div class="feature-icon">💾</div>
+                    <h3>Save History</h3>
+                    <p>Keep all your translations safe and accessible</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Languages -->
+        <section class="quick-languages">
+            <h2 class="section-title">
+                <span class="title-icon">🚀</span>
+                Quick Language Access
+                <span class="title-icon">🚀</span>
+            </h2>
+            <div class="quick-langs-grid">
+                <button class="quick-lang-btn" data-lang="en">🇺🇸 English</button>
+                <button class="quick-lang-btn" data-lang="es">🇪🇸 Spanish</button>
+                <button class="quick-lang-btn" data-lang="fr">🇫🇷 French</button>
+                <button class="quick-lang-btn" data-lang="de">🇩🇪 German</button>
+                <button class="quick-lang-btn" data-lang="it">🇮🇹 Italian</button>
+                <button class="quick-lang-btn" data-lang="pt">🇧🇷 Portuguese</button>
+                <button class="quick-lang-btn" data-lang="ja">🇯🇵 Japanese</button>
+                <button class="quick-lang-btn" data-lang="ko">🇰🇷 Korean</button>
+                <button class="quick-lang-btn" data-lang="zh-CN">🇨🇳 Chinese</button>
+                <button class="quick-lang-btn" data-lang="ru">🇷🇺 Russian</button>
+                <button class="quick-lang-btn" data-lang="ar">🇸🇦 Arabic</button>
+                <button class="quick-lang-btn" data-lang="hi">🇮🇳 Hindi</button>
+                <button class="quick-lang-btn" data-lang="ne" style="background: linear-gradient(135deg, #DC143C, #8B0000); color: white;">🇳🇵 Nepali</button>
+                <button class="quick-lang-btn" data-lang="th">🇹🇭 Thai</button>
+                <button class="quick-lang-btn" data-lang="vi">🇻🇳 Vietnamese</button>
+                <button class="quick-lang-btn" data-lang="nl">🇳🇱 Dutch</button>
+            </div>
+        </section>
+
+        <!-- All Languages Section -->
+        <section class="all-languages">
+            <h2 class="section-title">
+                <span class="title-icon">🌐</span>
+                All Supported Languages
+                <span class="title-icon">🌐</span>
+            </h2>
+            <div id="languagesGrid" class="languages-grid">
+                <!-- Languages will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- History & Favorites -->
+        <section class="history-section">
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="history">
+                        <i class="fas fa-history"></i> History
+                    </button>
+                    <button class="tab-btn" data-tab="favorites">
+                        <i class="fas fa-heart"></i> Favorites
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content active" id="historyTab">
+                <div id="historyList" class="items-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">📝</span>
+                        <p>No translation history yet</p>
+                        <span class="empty-hint">Start translating to see your history here</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="favoritesTab">
+                <div id="favoritesList" class="items-list">
+                    <div class="empty-state">
+                        <span class="empty-icon">💖</span>
+                        <p>No favorites yet</p>
+                        <span class="empty-hint">Save your favorite translations by clicking the heart icon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span>🌐</span>
+                    <span>Universal Language Translator</span>
+                </div>
+                <p class="footer-tagline">🌍 Connecting the world through language • Made with ❤️BY Shivshankar</p>
+                <div class="footer-stats">
+                    <span><i class="fas fa-language"></i> 100+ Languages</span>
+                    <span><i class="fas fa-globe-americas"></i> Global Access</span>
+                    <span><i class="fas fa-bolt"></i> Instant Translation</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Translating...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
