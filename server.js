@@ -231,12 +231,17 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`🚀 Universal Language Translator Server running on http://localhost:${PORT}`);
-    console.log(`📚 API Endpoints:`);
-    console.log(`   POST /api/translate - Translate text`);
-    console.log(`   POST /api/detect - Detect language`);
-    console.log(`   GET /api/languages - Get all languages`);
-    console.log(`   GET /api/health - Health check`);
-});
+// Start server (only for local development, Vercel uses serverless export)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Universal Language Translator Server running on http://localhost:${PORT}`);
+        console.log(`📚 API Endpoints:`);
+        console.log(`   POST /api/translate - Translate text`);
+        console.log(`   POST /api/detect - Detect language`);
+        console.log(`   GET /api/languages - Get all languages`);
+        console.log(`   GET /api/health - Health check`);
+    });
+}
+
+// Vercel serverless export
+module.exports = app;
